@@ -1,8 +1,97 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-}
+﻿
+<div class="auth-container">
+    <div class="auth-header">
+        <h1>🎮</h1>
+        <p>Welcome to the Game</p>
+    </div>
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="form-container">
+        <div class="form-toggle">
+            <button type="button" class="toggle-btn active" onclick="showLogin()">Login</button>
+            <button type="button" class="toggle-btn" onclick="showRegister()">Register</button>
+        </div>
+
+        <div id="error-message" class="error-message"></div>
+        <div id="success-message" class="success-message"></div>
+
+        <!-- Login Form -->
+        <div id="login-form" class="form-section active">
+            <form asp-action="Login" asp-controller="Home" method="post" onsubmit="return validateLogin()">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input type="email" id="login-email" name="Email" required
+                           placeholder="Enter your email address">
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" name="PasswordHash" required
+                           placeholder="Enter your password">
+                </div>
+
+                <button type="submit" class="btn">Login to Game</button>
+            </form>
+        </div>
+
+        <!-- Registration Form -->
+        <div id="register-form" class="form-section">
+            <form asp-action="Register" asp-controller="Home" method="post" onsubmit="return validateRegistration()">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="register-firstname">First Name</label>
+                        <input type="text" id="register-firstname" name="FirstName" required
+                               placeholder="First name">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="register-lastname">Last Name</label>
+                        <input type="text" id="register-lastname" name="LastName" required
+                               placeholder="Last name">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="register-email">Email Address</label>
+                    <input type="email" id="register-email" name="Email" required
+                           placeholder="Enter your email address">
+                </div>
+
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" name="PasswordHash" required
+                           placeholder="Create a strong password"
+                           oninput="validatePasswordStrength(this.value)">
+                    <div class="password-requirements">
+                        <p>Password must contain:</p>
+                        <ul id="password-requirements-list">
+                            <li id="req-length">At least 8 characters</li>
+                            <li id="req-uppercase">One uppercase letter</li>
+                            <li id="req-lowercase">One lowercase letter</li>
+                            <li id="req-number">One number</li>
+                            <li id="req-special">One special character</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="confirm-password">Confirm Password</label>
+                    <input type="password" id="confirm-password" name="ConfirmPassword" required
+                           placeholder="Confirm your password">
+                </div>
+
+                <button type="submit" class="btn">Create Account</button>
+            </form>
+        </div>
+    </div>
 </div>
+
+@* <h1>Wordplay Game</h1>
+<div id="countdown" style="display: none;">3</div>
+<div id="gameContent" style="display: none;">
+    <div id="question-container">
+        <h2 id="question-title">Question</h2>
+        <p id="question-text"></p>
+        <input id="answer" />
+        <p id="question-result"></p>
+    </div>
+</div> *@
