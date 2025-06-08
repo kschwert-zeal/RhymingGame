@@ -36,10 +36,6 @@ namespace RhymingGame.Services
                 if (existingUser != null)
                     return (false, "An account with this email already exists.", null);
 
-                // Check if UserName already exists
-                var existingUserName = _db.Users.FirstOrDefault(x => x.UserName.ToLower() == firstName.Trim().ToLowerInvariant());
-                if (existingUserName != null)
-                    return (false, "An account with this User Name already exists.", null);
 
                 // Validate password strength
                 PasswordSecurityService passwordSecurityService = new PasswordSecurityService();
@@ -62,6 +58,7 @@ namespace RhymingGame.Services
                 };
 
                 await _db.AddAsync(user);
+                await _db.SaveChangesAsync();
                 return (true, string.Empty, user);
             }
             catch (Exception ex)
@@ -95,6 +92,7 @@ namespace RhymingGame.Services
                 // Update last login time
                 user.LastLoginAt = DateTime.UtcNow;
                 _db.Update(user);
+                _db.SaveChanges();
 
                 return (true, string.Empty, user);
             }
